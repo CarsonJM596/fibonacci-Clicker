@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Fibonacci Clicker</title>
+    <style> 
+        #center {text-align:center;}  /*Used for centering */ 
+        button {padding:10px 20px;font-size:16px;margin-top:10px;} /*Style for button*/
+        #num { /*Style for fibbonacci sequence number */
+            font-size: 100px;
+            margin-top: 5px;
+            color: black;
+        }
+        #count{/*Style for times clicked */
+            font-size: 40px;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div id = "center">
+        <h1>Click For Fibbonacci!</h1> <!--Header-->
+        <button id = "button"type="button">Click Here!</button> <!--Button-->
+        <h3 id="num"></h3> <!--Used to output fibbonacci sequence number -->
+        <p style = font-size:30px;>Times Clicked:</p> <!--To display how many times clicked-->
+        <p id="count"></p> <!--Used to output-->
+    </div>
+    <script>
+        let count = 0; //Define Count
+        function fib(n){
+            if (n <=1){ //Base case returns 0 , 1
+                return n;
+            } else { //Otherwise go through recursive statement
+                return fib(n-1) + fib(n-2); 
+            }
+        }
+        document.getElementById('button').onclick = () =>{
+            const output = document.getElementById("num"); //Style's output variable to element "num"
+            output.innerText = fib(count); //Prints the result of fibbonacci
+
+            count++; //Add to count for next time through 
+
+            const print = document.getElementById("count");  //Style's print variable to element "count"
+            print.innerText = count; //Prints the count (times clicked)
+        }
+    </script>
+</body>
+</html>
