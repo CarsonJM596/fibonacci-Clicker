@@ -2,23 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fibonacci Clicker</title>
     <style> 
         #center { /*Used for centering */ 
             text-align:center;
+            width : 100%;
+            height: 95vh;
+            background-color: #ffffff;
         }  
-        button {padding:10px 20px;font-size:16px;margin-top:10px;} /*Style for button*/
+        button { /*Style for button*/
+            padding:5px 10px;
+            font-size:16px;
+        } 
         #num { /*Style for fibbonacci sequence number */
             font-size: 100px;
-            margin-top: 5px;
             color: black;
         }
         #count{/*Style for times clicked*/
             font-size: 40px;
             color: black;
         }
-        #color{background-color:#ffffff}
     </style>
 </head>
 <body>
@@ -29,7 +33,6 @@
         <p style = font-size:30px;>Times Clicked:</p> <!--To display how many times clicked-->
         <p id="count"></p> <!--Used to output times clicked-->
     </div>
-    <div id= "color"></div>
     <script>
         let count = 0; //Define Count
         function fib(n){
@@ -41,14 +44,14 @@
         }
         function getRandomColor(){
             var hex = '0123456789ABCDEF'; //All hexidecimal possibilities for color
-            var color = '#'; //# in order to intialize color
+            var color = '#'; //# in order to intialize hexidecimal value for color
             for (i=0; i<6; i++){ //Sets the color to random hexidecimal value
                 color += hex[Math.floor(Math.random()*16)]; //Adds random hexidecimal value to color 
             }
-            return color; //returns color
+            return color; //returns random color
         }
         function setRandomColor(){ //Sets random background color
-            document.getElementById('color').style.backgroundColor = getRandomColor();
+            document.getElementById('center').style.backgroundColor = getRandomColor();
         }
         document.getElementById('button').onclick = () =>{
             const output = document.getElementById("num"); //Style's output variable to element "num"
@@ -62,4 +65,4 @@
         }
     </script>
 </body>
-</html>
+</html> 
