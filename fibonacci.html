@@ -5,17 +5,20 @@
     <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
     <title>Fibonacci Clicker</title>
     <style> 
-        #center {text-align:center;}  /*Used for centering */ 
+        #center { /*Used for centering */ 
+            text-align:center;
+        }  
         button {padding:10px 20px;font-size:16px;margin-top:10px;} /*Style for button*/
         #num { /*Style for fibbonacci sequence number */
             font-size: 100px;
             margin-top: 5px;
             color: black;
         }
-        #count{/*Style for times clicked */
+        #count{/*Style for times clicked*/
             font-size: 40px;
             color: black;
         }
+        #color{background-color:#ffffff}
     </style>
 </head>
 <body>
@@ -24,8 +27,9 @@
         <button id = "button"type="button">Click Here!</button> <!--Button-->
         <h3 id="num"></h3> <!--Used to output fibbonacci sequence number -->
         <p style = font-size:30px;>Times Clicked:</p> <!--To display how many times clicked-->
-        <p id="count"></p> <!--Used to output-->
+        <p id="count"></p> <!--Used to output times clicked-->
     </div>
+    <div id= "color"></div>
     <script>
         let count = 0; //Define Count
         function fib(n){
@@ -35,11 +39,23 @@
                 return fib(n-1) + fib(n-2); 
             }
         }
+        function getRandomColor(){
+            var hex = '0123456789ABCDEF'; //All hexidecimal possibilities for color
+            var color = '#'; //# in order to intialize color
+            for (i=0; i<6; i++){ //Sets the color to random hexidecimal value
+                color += hex[Math.floor(Math.random()*16)]; //Adds random hexidecimal value to color 
+            }
+            return color; //returns color
+        }
+        function setRandomColor(){ //Sets random background color
+            document.getElementById('color').style.backgroundColor = getRandomColor();
+        }
         document.getElementById('button').onclick = () =>{
             const output = document.getElementById("num"); //Style's output variable to element "num"
             output.innerText = fib(count); //Prints the result of fibbonacci
 
             count++; //Add to count for next time through 
+            setRandomColor(); //Sets background color to a random color everytime you click
 
             const print = document.getElementById("count");  //Style's print variable to element "count"
             print.innerText = count; //Prints the count (times clicked)
