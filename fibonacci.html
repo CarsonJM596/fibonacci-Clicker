@@ -68,7 +68,7 @@
             document.getElementById('center').style.backgroundColor = getRandomColor();
         }
         function getRandomFontSize(){
-            const fontSize = Math.floor(Math.random() * (50 - 20 + 1)) + 50; //Generates a number between 20 & 50
+            const fontSize = Math.floor(Math.random() * (70 - 20 + 1)) + 20; //Generates a number between 20 & 70
             return fontSize +   "px" //Returns number + px
         }
         function setRandomFontSize(){ //Sets random font size
@@ -84,7 +84,3 @@
             const print = document.getElementById("count");  //Style's print variable to element "count"
             setRandomFontSize(); //Sets font size of count to random
             print.innerText = count; //Prints the count (times clicked)
-        }
-    </script>
-</body>
-</html> 
