@@ -5,33 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fibonacci Clicker</title>
     <style> 
-        #center { /*Used for centering */ 
-            text-align:center;
-            width : 100%;
-            height: 95vh;
-            background-color: #ffffff;
-        }  
-        button { /*Style for button*/
-            padding:5px 10px;
-            font-size:16px;
-        } 
-        #num { /*Style for fibbonacci sequence number */
-            font-size: 100px;
-            color: black;
+       body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
         }
-        #count{/*Style for times clicked*/
-            font-size: 40px;
-            color: black;
+        #center {
+            width: 1200px; 
+            height: 600px; 
+            text-align: center;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        #button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            position: absolute;
+        }
+        #button:hover {
+            background-color: #0056b3;
+        }
+        #num {
+            font-size: 2rem;
+            margin: 10px 0;
+        }
+        #count {
+            font-size: 1.5rem;
         }
     </style>
 </head>
 <body>
     <div id = "center">
         <h1>Click For Fibbonacci!</h1> <!--Header-->
-        <button id = "button"type="button">Click Here!</button> <!--Button-->
         <h3 id="num"></h3> <!--Used to output fibbonacci sequence number -->
         <p style = font-size:30px;>Times Clicked:</p> <!--To display how many times clicked-->
         <p id="count"></p> <!--Used to output times clicked-->
+        <button id = "button"type="button">Click Here!</button> <!--Button-->
     </div>
     <script>
         let count = 0; //Define Count
@@ -41,8 +61,8 @@
             } 
             let x = 0; y = 1; // first 2 numbers of fib
             for (let i = 2; i <= n; i++){
-                let cur = x + y; // Add first 2 nums of fib
-                x = y; //Set first num to next num in sequence
+                let cur = x + y; // Next num is first plus second
+                x = y; //Set first num to second num in sequence
                 y = cur; //Set second num to next num in sequence
             }
             return y; //Return last num in the sequence
@@ -67,20 +87,32 @@
         function setRandomColor(){ //Sets random background color
             document.getElementById('center').style.backgroundColor = getRandomColor();
         }
-        function getRandomFontSize(){
-            const fontSize = Math.floor(Math.random() * (70 - 20 + 1)) + 20; //Generates a number between 20 & 70
-            return fontSize +   "px" //Returns number + px
-        }
         function setRandomFontSize(){ //Sets random font size
-            document.getElementById('count').style.fontSize = getRandomFontSize(); 
+            document.getElementById('count').style.fontSize = Math.floor(Math.random() * (70 - 20 + 1)) + 20 +  "px"; //Between 20-70px
+            document.getElementById('num').style.fontSize = Math.floor(Math.random() * (70 - 20 + 1)) + 20 +  "px";
         }
-        document.getElementById('button').onclick = () =>{
+        function setRandomPosition(){
+            const button = document.getElementById('button'); 
+            const box = document.getElementById('center');
+            //Sets x & y positions to random while keeping it constrained to the center
+            const randX = Math.random() * (box.offsetWidth - button.offsetWidth); 
+            const randY = Math.random() * (box.offsetHeight - button.offsetHeight);
+            //Apply positions
+            button.style.left = `${randX}px`;
+            button.style.top = `${randY}px`;
+        }
+        document.getElementById('button').onclick =()=>{
             const output = document.getElementById("num"); //Style's output variable to element "num"
             output.innerText = fib(count); //Prints the result of fibbonacci
 
             count++; //Add to count for next time through 
             setRandomColor(); //Sets background color to a random color everytime you click
+            setRandomPosition(); //Change button position everytime you click
 
             const print = document.getElementById("count");  //Style's print variable to element "count"
             setRandomFontSize(); //Sets font size of count to random
             print.innerText = count; //Prints the count (times clicked)
+        }
+    </script>
+</body>
+</html> 
