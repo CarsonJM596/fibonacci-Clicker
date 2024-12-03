@@ -15,7 +15,7 @@
         }
         #center {
             width: 1200px; 
-            height: 500px; 
+            height: 600px; 
             text-align: center;
             border-radius: 8px;
             background-color: #fff;
@@ -29,7 +29,7 @@
             border: none;
             border-radius: 5px;
             background-color: #007bff;
-            color: black;
+            color: white;
             cursor: pointer;
             position: absolute;
         }
@@ -54,66 +54,101 @@
         <button id = "button"type="button">Click Here!</button> <!--Button-->
     </div>
     <script>
-        let count = 0; //Define Count
-        function fib(n){
-            if (n <=1){ //Base case returns 0 , 1
-                return n;
-            } 
-            let x = 0; y = 1; // first 2 numbers of fib
-            for (let i = 2; i <= n; i++){
-                let cur = x + y; // Next num is first plus second
-                x = y; //Set first num to second num in sequence
-                y = cur; //Set second num to next num in sequence
-            }
-            return y; //Return last num in the sequence
+        function setCookie(name, value, hours) {
+            const date = new Date(); //New date object 
+            date.setTime(date.getTime() + (hours * 60 * 60 * 1000)); // Convert hours to milliseconds
+            const exp = "expires=" + date.toUTCString(); // Format the expiration date in UTC string format
+            // Set the cookie with the provided name, value, expiration, and additional flags
+            document.cookie = `${name}=${value}; ${exp}; path=/; SameSite=Lax; Secure`; 
         }
-        function getRandomColor(){
-            var hex = '0123456789ABCDEF'; //All hexidecimal possibilities for color
-            var color = '#'; //# in order to intialize hexidecimal value for color
-            do { //Continue to get random colors as long as color is too dark
-                for (i=0; i<6; i++){ //Sets the color to random hexidecimal value
-                    color += hex[Math.floor(Math.random()*16)]; //Adds random hexidecimal value to color 
+    
+        function getCookie(name) {
+            const nameEQ = name + "="; // Format the cookie name to search for
+            const cookies = document.cookie.split(";"); // Split the cookies string into an array of individual cookies
+            for (let x = 0; x < cookies.length; x++) {
+                let cookie = cookies[x].trim(); // Remove any leading/trailing spaces
+                if (cookie.indexOf(nameEQ) === 0) { // Check if the current cookie starts with the desired name
+                    return cookie.substring(nameEQ.length, cookie.length); // Extract and return the value part of the cookie
                 }
-            } while (tooDark(color));
-            return color; //returns random color
+            }
+            return null; // Return null if the cookie is not found
         }
-        function tooDark(color){ //Make sure background does not match text color
-            //Turn hexidecimal value of color to RGB values
-            var r = parseInt(color.slice(1,3), 16); //Extracts red value
-            var g = parseInt(color.slice(3,5), 16); //Extracts green value
-            var b = parseInt(color.slice(5,7), 16); //Extracts red value
-            return (r + g + b) < 70; //Return if the color is too dark
+    
+        function fib(n) {
+            if (n <= 1) return n; // Base cases: 0, 1
+            let x = 0, y = 1; //first & second number in the fibbonacci number
+            for (let i = 2; i <= n; i++) {
+                let cur = x + y; //Next num is first + second num
+                x = y; //Set first num to second num
+                y = cur; //Set second num to next num in seq
+            }
+            return y; //Returns the fibbonacci num
         }
-        function setRandomColor(){ //Sets random background color & button color
+    
+        function getRandomColor() {
+            const hex = '0123456789ABCDEF'; //All possible hex values
+            let color = '#';
+            do {
+                color = '#';
+                for (let i = 0; i < 6; i++) {
+                    color += hex[Math.floor(Math.random() * 16)];
+                } //Gets a random hexidecimal color 
+            } while (tooDark(color)); //Checks to see if it's too dark
+            return color;
+        }
+    
+        function tooDark(color) {
+            //Checks red, green, & blue values 
+            const r = parseInt(color.slice(1, 3), 16);
+            const g = parseInt(color.slice(3, 5), 16);
+            const b = parseInt(color.slice(5, 7), 16);
+
+            return (r + g + b) < 50; //Checks to see if it's too dark 
+        }
+    
+        function setRandomColor() { //Sets a random color of button & center
             document.getElementById('center').style.backgroundColor = getRandomColor();
             document.getElementById('button').style.backgroundColor = getRandomColor();
         }
-        function setRandomFontSize(){ //Sets random font size
-            document.getElementById('count').style.fontSize = Math.floor(Math.random() * (70 - 20 + 1)) + 20 +  "px"; //Between 20-70px
-            document.getElementById('num').style.fontSize = Math.floor(Math.random() * (70 - 20 + 1)) + 20 +  "px";
+    
+        function setRandomFontSize() { //Sets arandom font size for count & fib num
+            document.getElementById('count').style.fontSize = Math.floor(Math.random() * (70 - 20 + 1)) + 20 + "px";
+            document.getElementById('num').style.fontSize = Math.floor(Math.random() * (70 - 20 + 1)) + 20 + "px";
         }
-        function setRandomPosition(){
-            const button = document.getElementById('button'); 
+    
+        function setRandomPosition() {
+            const button = document.getElementById('button');
             const box = document.getElementById('center');
-            //Sets x & y positions to random while keeping it constrained to the center
-            const randX = Math.random() * (box.offsetWidth - button.offsetWidth); 
+            //Sets a random position for button
+            const randX = Math.random() * (box.offsetWidth - button.offsetWidth);
             const randY = Math.random() * (box.offsetHeight - button.offsetHeight);
-            //Apply positions
+            //Puts it in the random position set 
             button.style.left = `${randX}px`;
             button.style.top = `${randY}px`;
         }
-        document.getElementById('button').onclick =()=>{
-            const output = document.getElementById("num"); //Style's output variable to element "num"
-            output.innerText = fib(count); //Prints the result of fibbonacci
-
-            count++; //Add to count for next time through 
-            setRandomColor(); //Sets background color to a random color everytime you click
-            setRandomPosition(); //Change button position everytime you click
-
-            const print = document.getElementById("count");  //Style's print variable to element "count"
-            setRandomFontSize(); //Sets font size of count to random
-            print.innerText = count; //Prints the count (times clicked)
-        }
-    </script>
+    
+        // Initialize state
+        let count = parseInt(getCookie('count')) || 0; //Sets the count to 0 or saved count
+        let FibValue = parseInt(getCookie("fibValue")) || fib(count);//Sets fibo num to 0 or saved fib num
+    
+        document.getElementById("num").innerText = FibValue; // Show last Fibonacci value
+        document.getElementById("count").innerText = count; // Show count
+    
+        document.getElementById('button').onclick = () => {
+            FibValue = fib(count); //Sets fib value to the count of fib
+            count++; //adds to count 
+    
+            document.getElementById("num").innerText = FibValue; //Prints out fibvalue
+            document.getElementById("count").innerText = count; //Prints out count 
+    
+            // Save state in cookies
+            setCookie("fibValue", lastFibValue, 1); // Save for 1 hour
+            setCookie("count", count, 1); // Save for 1 hour
+    
+            setRandomColor(); //Sets background color of button & center to random
+            setRandomPosition(); //Sets button to random position
+            setRandomFontSize(); //Sets it to random font size of count & num
+        };
+    </script>    
 </body>
 </html> 
