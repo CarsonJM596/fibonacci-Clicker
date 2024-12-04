@@ -32,6 +32,9 @@
             color: white;
             cursor: pointer;
             position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
         #button:hover {
             background-color: #0056b3;
@@ -49,7 +52,7 @@
     <div id = "center">
         <h1>Click For Fibbonacci!</h1> <!--Header-->
         <h3 id="num"></h3> <!--Used to output fibbonacci sequence number -->
-        <p style = font-size:30px;>Times Clicked:</p> <!--To display how many times clicked-->
+        <p style = "font-size:30px;">Times Clicked:</p> <!--To display how many times clicked-->
         <p id="count"></p> <!--Used to output times clicked-->
         <button id = "button"type="button">Click Here!</button> <!--Button-->
     </div>
@@ -107,13 +110,27 @@
         }
     
         function setRandomColor() { //Sets a random color of button & center
-            document.getElementById('center').style.backgroundColor = getRandomColor();
-            document.getElementById('button').style.backgroundColor = getRandomColor();
+            //Set constant variables to save background color for cookies
+            const background = getRandomColor();
+            const button = getRandomColor();
+            //Sets background color of button & background to random color
+            document.getElementById('center').style.backgroundColor = background;
+            document.getElementById('button').style.backgroundColor = button;
+            //Save color to cookies for 1 hour
+            setCookie('background', background , 1);
+            setCookie('button', button , 1);
         }
     
         function setRandomFontSize() { //Sets arandom font size for count & fib num
-            document.getElementById('count').style.fontSize = Math.floor(Math.random() * (70 - 20 + 1)) + 20 + "px";
-            document.getElementById('num').style.fontSize = Math.floor(Math.random() * (70 - 20 + 1)) + 20 + "px";
+            //Set constant variables to save font size for cookies
+            const count = Math.floor(Math.random() * (70 - 20 + 1)) +  20 + "px";
+            const fibNum = Math.floor(Math.random() * (70 - 20 + 1)) + 20 + "px";
+            //Sets font size of count & number to random size (20-70px)
+            document.getElementById('count').style.fontSize = count;
+            document.getElementById('num').style.fontSize = fibNum;
+            //Save fontsize to cookies
+            setCookie('count', count , 1);
+            setCookie('fibNum', fibNum, 1);
         }
     
         function setRandomPosition() {
@@ -125,25 +142,56 @@
             //Puts it in the random position set 
             button.style.left = `${randX}px`;
             button.style.top = `${randY}px`;
+            button.style.transform = 'none'; // Remove default center alignment
+            //Save position to cookies
+            setCookie('buttonLeft', randX, 1);
+            setCookie('buttonTop', randY, 1);
         }
     
         // Initialize state
-        let count = parseInt(getCookie('count')) || 0; //Sets the count to 0 or saved count
-        let FibValue = parseInt(getCookie("fibValue")) || fib(count);//Sets fibo num to 0 or saved fib num
+        let clickCount = parseInt(getCookie('clickCount')) || 0; //Sets the count to 0 or saved count
+        let FibValue = parseInt(getCookie('FibValue')) || fib(clickCount);//Sets fibo num to 0 or saved fib num
     
-        document.getElementById("num").innerText = FibValue; // Show last Fibonacci value
-        document.getElementById("count").innerText = count; // Show count
+        document.getElementById('num').innerText = FibValue; // Show last Fibonacci value
+        document.getElementById('count').innerText = clickCount; // Show count
+        //Restore background color if still avaiable
+        const savedBackground = getCookie('background');
+        const savedButton = getCookie('button');
+        if (savedBackground){
+            document.getElementById('center').style.backgroundColor = savedBackground;
+        }
+        if (savedButton){
+            document.getElementById('button').style.backgroundColor = savedButton;
+        }
+        //Restore font size if still avaiable
+        const savedCount = getCookie('count');
+        const savedNum = getCookie('fibNum');
+        if (savedCount){
+            document.getElementById('count').style.fontSize = savedCount;
+        }
+        if (savedNum){
+            document.getElementById('num').style.fontSize = savedNum;
+        }
+        //Restore button position if still avaiable 
+        const savedLeft = getCookie('buttonLeft');
+        const savedTop = getCookie('buttonTop');
+        if (savedLeft && savedTop){
+            const button1 = document.getElementById('button');
+            button1.style.left = `${parseFloat(savedLeft)}px`;
+            button1.style.top = `${parseFloat(savedTop)}px`;
+            button1.style.transform = 'none'; //Removes transform to allow absolute positioning 
+        }
     
         document.getElementById('button').onclick = () => {
-            FibValue = fib(count); //Sets fib value to the count of fib
-            count++; //adds to count 
+            FibValue = fib(clickCount); //Sets fib value to the count of fib
+            clickCount++; //adds to count 
     
-            document.getElementById("num").innerText = FibValue; //Prints out fibvalue
-            document.getElementById("count").innerText = count; //Prints out count 
+            document.getElementById('num').innerText = FibValue; //Prints out fibvalue
+            document.getElementById('count').innerText = clickCount; //Prints out count 
     
             // Save state in cookies
-            setCookie("fibValue", lastFibValue, 1); // Save for 1 hour
-            setCookie("count", count, 1); // Save for 1 hour
+            setCookie('FibValue', FibValue, 1); // Save for 1 hour
+            setCookie('clickCount', clickCount, 1); // Save for 1 hour
     
             setRandomColor(); //Sets background color of button & center to random
             setRandomPosition(); //Sets button to random position
