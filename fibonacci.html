@@ -233,8 +233,8 @@
 
     
         document.getElementById('button').onclick = () => {
-            if (mode === 'fibonacci') {
-                displayValue = fib(clickCount); // Now the Fibonacci number matches the updated clickCount.
+            if (mode === 'fibonacci') { //Grabs display value 
+                displayValue = fib(clickCount);
             } else {
                 displayValue = fact(clickCount);
             } 
@@ -277,7 +277,7 @@
             document.getElementById('button').style.transform = "translate(-50%, -50%)";
 
             // Log reset for debugging
-         console.log("Progress has been reset!");
+            console.log("Progress has been reset!");
         };
 
     </script>    
