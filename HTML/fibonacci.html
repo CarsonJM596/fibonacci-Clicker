@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fibonacci Clicker</title>
+    <link rel="stylesheet" type="text/css" href="../CSS/fibonacci.css">
+</head>
+<body>
+    <title>Fibonacci Clicker</title>
+    <div id = "center">
+        <h1 id="headerText">Click for Fibonacci!</h1> <!--Header-->
+        <h3 id="num"></h3> <!--Used to output display value -->
+        <p style = "font-size:30px;">Times Clicked:</p> <!--To display how many times clicked-->
+        <p id="count"></p> <!--Used to output times clicked-->
+        <button id = "button"type="button">Click Here!</button> <!--Button-->
+    </div>
+    <div id="controls">
+        <button id="factorialToggle">Switch to Factorial</button>
+        <button id="resetProgress">Reset Progress</button>
+    </div>
+</body>
+<script src="../JS/cookie.js"></script> <!--Intialize get & set cookie method-->
+<script src="../JS/setView.js"></script> <!--Random events that change user's view-->
+<script src="../JS/sequence.js"></script> <!--Functionality and formatting of number sequences-->
+<script src="../JS/display.js"></script> <!--Displaying of numbers after pressing buttons-->
+</html> 
