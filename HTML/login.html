@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login/Signup</title>
+    <link rel="stylesheet"  type = "text/CSS" href="../CSS/login.css"> 
+</head>
+<body>
+    <div class="container" id="login-container">
+        <h1>Login</h1>
+        <form action="/login" method="POST">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <div class="link">
+            <p>Don't have an account? <a href="#" onclick="showSignup()">Sign up</a></p>
+        </div>
+    </div>
+
+    <div class="container" id="signup-container" style="display: none; margin-top: 50px;">
+        <h1>Sign Up</h1>
+        <form action="/signup" method="POST">
+            <label for="signup-email">Email:</label>
+            <input type="email" id="signup-email" name="email" placeholder="Enter your email" required>
+
+            <label for="signup-password">Password:</label>
+            <input type="password" id="signup-password" name="password" placeholder="Enter your password" required>
+
+            <label for="confirm-password">Confirm Password:</label>
+            <input type="password" id="confirm-password" name="confirm_password" placeholder="Confirm your password" required>
+
+            <button type="submit">Sign Up</button>
+        </form>
+
+        <div class="link">
+            <p>Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
+        </div>
+    </div>
+    <script src="../JS/signup.js"></script> <!--Allows change between signup & Login-->
+</body>
+</html>
